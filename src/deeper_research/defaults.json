@@ -1,0 +1,44 @@
+{
+  "default_profile": "deepseek",
+  "workspace": "workspace",
+  "project_budget_usd": "10.00",
+  "profiles": {
+    "deepseek": {
+      "protocol": "deepseek_chat",
+      "base_url": "https://api.deepseek.com",
+      "model": "deepseek-flash",
+      "api_key_env": "DEEPSEEK_API_KEY",
+      "input_usd_per_million": "0.30",
+      "output_usd_per_million": "1.20",
+      "options": {
+        "thinking": { "type": "disabled" },
+        "json_object": true
+      }
+    },
+    "openai_chat": {
+      "protocol": "openai_chat",
+      "base_url": "https://api.openai.com/v1",
+      "model": "gpt-6.1-sol",
+      "api_key_env": "OPENAI_API_KEY",
+      "input_usd_per_million": "2.50",
+      "output_usd_per_million": "10.00",
+      "options": {
+        "reasoning_effort": "low",
+        "token_limit_field": "max_completion_tokens",
+        "json_object": true
+      }
+    },
+    "openai_responses": {
+      "protocol": "openai_responses",
+      "base_url": "https://api.openai.com/v1",
+      "model": "gpt-6.1-sol",
+      "api_key_env": "OPENAI_API_KEY",
+      "input_usd_per_million": "2.50",
+      "output_usd_per_million": "10.00",
+      "options": {
+        "reasoning": { "effort": "low" },
+        "json_object": true
+      }
+    }
+  }
+}

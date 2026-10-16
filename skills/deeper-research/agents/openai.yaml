@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deeper Research"
+  short_description: "以自然语言调用本地研究程序，复用任务、模型配置和预算账本"
+  default_prompt: "用 $deeper-research 根据我指定的资料和问题创建并执行研究任务，报告结果与费用。"

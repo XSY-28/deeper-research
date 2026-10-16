@@ -1,0 +1,345 @@
+{
+  "question": "仅依据 AlphaZero v1 的 Methods，分别核对 Chess 和 Shogi 的 input representation 与 action encoding。每种游戏给输入如何包含棋盘历史和规则状态、输出动作如何编码，以及非法动作如何处理；数字若原文给出则核对，不猜补。然后解释这种规则编码为什么不等于手工棋力评估，明确哪些领域知识被保留、哪些专家棋谱或搜索启发式没有使用。不要把“无额外领域知识”写成连规则和表示都不需要。引用版本、PDF物理页、章节及相关表格。",
+  "criteria": [
+    "Chess、Shogi分别说明输入中的历史和规则状态，原文数值与适用对象对应正确",
+    "Chess、Shogi分别说明输出动作编码和非法动作处理，区分共享方法与游戏特定表示",
+    "规则/表示与手工评估、专家棋谱、搜索启发式的边界清楚，不把tabula rasa绝对化",
+    "引用版本、物理页、章节/表格可定位，未规定项标未知而不把片段缺失当整篇否认"
+  ],
+  "source_ids": [
+    "src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210"
+  ],
+  "plan": {
+    "criteria": [
+      {
+        "id": "c1",
+        "requirements": [
+          {
+            "id": "c1.r1",
+            "kind": "fact",
+            "request_quote": "分别核对 Chess 和 Shogi 的 input representation",
+            "request_quotes": [
+              "分别核对 Chess 和 Shogi 的 input representation"
+            ],
+            "text": "针对 Chess，说明其输入表示如何包含棋盘历史。"
+          },
+          {
+            "id": "c1.r2",
+            "kind": "fact",
+            "request_quote": "分别核对 Chess 和 Shogi 的 input representation",
+            "request_quotes": [
+              "分别核对 Chess 和 Shogi 的 input representation"
+            ],
+            "text": "针对 Chess，说明其输入表示如何包含规则状态。"
+          },
+          {
+            "id": "c1.r3",
+            "kind": "fact",
+            "request_quote": "分别核对 Chess 和 Shogi 的 input representation",
+            "request_quotes": [
+              "分别核对 Chess 和 Shogi 的 input representation"
+            ],
+            "text": "针对 Shogi，说明其输入表示如何包含棋盘历史。"
+          },
+          {
+            "id": "c1.r4",
+            "kind": "fact",
+            "request_quote": "分别核对 Chess 和 Shogi 的 input representation",
+            "request_quotes": [
+              "分别核对 Chess 和 Shogi 的 input representation"
+            ],
+            "text": "针对 Shogi，说明其输入表示如何包含规则状态。"
+          },
+          {
+            "id": "c1.r5",
+            "kind": "fact",
+            "request_quote": "数字若原文给出则核对，不猜补",
+            "request_quotes": [
+              "数字若原文给出则核对，不猜补"
+            ],
+            "text": "逐项核对输入表示中原文给出的数值，并对应到 Chess 和 Shogi 各自适用对象。"
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "requirements": [
+          {
+            "id": "c2.r1",
+            "kind": "fact",
+            "request_quote": "分别核对 Chess 和 Shogi 的 ... action encoding",
+            "request_quotes": [
+              "分别核对 Chess 和 Shogi 的",
+              "action encoding"
+            ],
+            "text": "针对 Chess，说明其输出动作如何编码。"
+          },
+          {
+            "id": "c2.r2",
+            "kind": "fact",
+            "request_quote": "每种游戏 ... 输出动作如何编码",
+            "request_quotes": [
+              "每种游戏",
+              "输出动作如何编码"
+            ],
+            "text": "针对 Shogi，说明其输出动作如何编码。"
+          },
+          {
+            "id": "c2.r3",
+            "kind": "fact",
+            "request_quote": "非法动作如何处理",
+            "request_quotes": [
+              "非法动作如何处理"
+            ],
+            "text": "针对 Chess，说明非法动作如何处理。"
+          },
+          {
+            "id": "c2.r4",
+            "kind": "fact",
+            "request_quote": "非法动作如何处理",
+            "request_quotes": [
+              "非法动作如何处理"
+            ],
+            "text": "针对 Shogi，说明非法动作如何处理。"
+          },
+          {
+            "id": "c2.r5",
+            "kind": "fact",
+            "request_quote": "分别核对 Chess 和 Shogi 的 ... action encoding",
+            "request_quotes": [
+              "分别核对 Chess 和 Shogi 的",
+              "action encoding"
+            ],
+            "text": "区分 Chess 与 Shogi 在动作编码中共享的方法和游戏特定表示。"
+          }
+        ]
+      },
+      {
+        "id": "c3",
+        "requirements": [
+          {
+            "id": "c3.r1",
+            "kind": "fact",
+            "request_quote": "解释这种规则编码为什么不等于手工棋力评估",
+            "request_quotes": [
+              "解释这种规则编码为什么不等于手工棋力评估"
+            ],
+            "text": "解释规则编码为什么不等于手工棋力评估。"
+          },
+          {
+            "id": "c3.r2",
+            "kind": "fact",
+            "request_quote": "哪些领域知识被保留",
+            "request_quotes": [
+              "哪些领域知识被保留"
+            ],
+            "text": "明确哪些领域知识被保留。"
+          },
+          {
+            "id": "c3.r3",
+            "kind": "fact",
+            "request_quote": "哪些专家棋谱或搜索启发式没有使用",
+            "request_quotes": [
+              "哪些专家棋谱或搜索启发式没有使用"
+            ],
+            "text": "明确哪些专家棋谱没有使用。"
+          },
+          {
+            "id": "c3.r4",
+            "kind": "fact",
+            "request_quote": "哪些专家棋谱或搜索启发式没有使用",
+            "request_quotes": [
+              "哪些专家棋谱或搜索启发式没有使用"
+            ],
+            "text": "明确哪些搜索启发式没有使用。"
+          },
+          {
+            "id": "c3.r5",
+            "kind": "fact",
+            "request_quote": "不要把“无额外领域知识”写成连规则和表示都不需要",
+            "request_quotes": [
+              "不要把“无额外领域知识”写成连规则和表示都不需要"
+            ],
+            "text": "避免把“无额外领域知识”理解为连规则和表示都不需要。"
+          },
+          {
+            "id": "c3.r6",
+            "kind": "fact",
+            "request_quote": "哪些领域知识被保留",
+            "request_quotes": [
+              "哪些领域知识被保留"
+            ],
+            "text": "分别说明 Chess 与 Shogi 中领域知识保留的边界。"
+          }
+        ]
+      },
+      {
+        "id": "c4",
+        "requirements": [
+          {
+            "id": "c4.r1",
+            "kind": "format",
+            "request_quote": "引用版本、PDF物理页、章节及相关表格",
+            "request_quotes": [
+              "引用版本、PDF物理页、章节及相关表格"
+            ],
+            "text": "引用 AlphaZero v1 的版本。"
+          },
+          {
+            "id": "c4.r2",
+            "kind": "format",
+            "request_quote": "引用版本、PDF物理页、章节及相关表格",
+            "request_quotes": [
+              "引用版本、PDF物理页、章节及相关表格"
+            ],
+            "text": "引用 PDF 物理页。"
+          },
+          {
+            "id": "c4.r3",
+            "kind": "format",
+            "request_quote": "引用版本、PDF物理页、章节及相关表格",
+            "request_quotes": [
+              "引用版本、PDF物理页、章节及相关表格"
+            ],
+            "text": "引用章节。"
+          },
+          {
+            "id": "c4.r4",
+            "kind": "format",
+            "request_quote": "引用版本、PDF物理页、章节及相关表格",
+            "request_quotes": [
+              "引用版本、PDF物理页、章节及相关表格"
+            ],
+            "text": "引用相关表格。"
+          },
+          {
+            "id": "c4.r5",
+            "kind": "abstention",
+            "request_quote": "数字若原文给出则核对，不猜补",
+            "request_quotes": [
+              "数字若原文给出则核对，不猜补"
+            ],
+            "text": "对原文未规定的项标记为未知或不猜补，不把片段缺失当作整篇否认。"
+          }
+        ]
+      }
+    ]
+  },
+  "packet": [
+    {
+      "canonical_id": "src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b12",
+      "id": "src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b12",
+      "location": {
+        "bbox": null,
+        "page": 12
+      },
+      "text": " Knowledge of the rules is also used to encode the input planes (i.e. castling, repetition,\nno-progress) and output planes (how pieces move, promotions, and piece drops in shogi).\n4. The typical number of legal moves is used to scale the exploration noise (see below).\n5. Chess and shogi games exceeding a maximum number of steps (determined by typical\ngame length) were terminated and assigned a drawn outcome; Go games were terminated\nand scored with Tromp-Taylor rules, similarly to previous work (29).\nAlphaZero did not use any form of domain knowledge beyond the points listed above.\nRepresentation\nIn this section we describe the representation of the board inputs, and the representation of the\naction outputs, used by the neural network inAlphaZero. Other representations could have been\nused; in our experiments the traini",
+      "text_end": 2532,
+      "text_start": 1701,
+      "title": "Mastering Chess and Shogi by Self-Play with a General Reinforcement Learning Algorithm (arXiv:1712.01815v1)",
+      "truncated": true
+    },
+    {
+      "canonical_id": "src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b2",
+      "id": "src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b2",
+      "location": {
+        "bbox": null,
+        "page": 2
+      },
+      "text": "legal destinations for all of the players’\npieces on the board; shogi also allows captured pieces to be placed back on the board. Both\nchess and shogi may result in draws in addition to wins and losses; indeed it is believed that the\noptimal solution to chess is a draw (17, 20, 30).\nThe AlphaZero algorithm is a more generic version of the AlphaGo Zero algorithm that was\nﬁrst introduced in the context of Go ( 29). It replaces the handcrafted knowledge and domain-\nspeciﬁc augmentations used in traditional game-playing programs with deep neural networks\nand a tabula rasa reinforcement learning algorithm.\nInstead of a handcrafted evaluation function and move ordering heuristics,AlphaZero utilises\na deep neural network(p,v ) = fθ(s) with parametersθ. This neural network takes the board po-\nsitions as an input and outpu",
+      "text_end": 3524,
+      "text_start": 2699,
+      "title": "Mastering Chess and Shogi by Self-Play with a General Reinforcement Learning Algorithm (arXiv:1712.01815v1)",
+      "truncated": true
+    },
+    {
+      "canonical_id": "src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b14",
+      "id": "src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b14",
+      "location": {
+        "bbox": null,
+        "page": 14
+      },
+      "text": "Chess Shogi\nFeature Planes Feature Planes\nQueen moves 56 Queen moves 64\nKnight moves 8 Knight moves 2\nUnderpromotions 9 Promoting queen moves 64\nPromoting knight moves 2\nDrop 7\nTotal 73 Total 139\nTable S2: Action representation used by AlphaZero in Chess and Shogi respectively. The policy\nis represented by a stack of planes encoding a probability distribution over legal moves; planes\ncorrespond to the entries in the table.\nunderpromotions for pawn moves or captures in two possible diagonals, to knight, bishop or\nrook respectively. Other pawn moves or captures from the seventh rank are promoted to a\nqueen.\nThe policy in shogi is represented by a 9× 9× 139 stack of planes similarly encoding a\nprobability distribution over 11,259 possible moves. The ﬁrst 64 planes encode ‘queen moves’\nand the next 2 moves encode ",
+      "text_end": 821,
+      "text_start": 0,
+      "title": "Mastering Chess and Shogi by Self-Play with a General Reinforcement Learning Algorithm (arXiv:1712.01815v1)",
+      "truncated": true
+    },
+    {
+      "canonical_id": "src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b13",
+      "id": "src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b13",
+      "location": {
+        "bbox": null,
+        "page": 13
+      },
+      "text": "Go Chess Shogi\nFeature Planes Feature Planes Feature Planes\nP1 stone 1 P1 piece 6 P1 piece 14\nP2 stone 1 P2 piece 6 P2 piece 14\nRepetitions 2 Repetitions 3\nP1 prisoner count 7\nP2 prisoner count 7\nColour 1 Colour 1 Colour 1\nTotal move count 1 Total move count 1\nP1 castling 2\nP2 castling 2\nNo-progress count 1\nTotal 17 Total 119 Total 362\nTable S1: Input features used by AlphaZero in Go, Chess and Shogi respectively. The ﬁrst set\nof features are repeated for each position in a T = 8 -step history. Counts are represented by\na single real-valued input; other input features are represented by a one-hot encoding using the\nspeciﬁed number of binary input planes. The current player is denoted by P1 and the opponent\nby P2.\nThe input to the neural network is anN×N× (MT +L) image stack that represents state\nusing a conca",
+      "text_end": 820,
+      "text_start": 0,
+      "title": "Mastering Chess and Shogi by Self-Play with a General Reinforcement Learning Algorithm (arXiv:1712.01815v1)",
+      "truncated": true
+    }
+  ],
+  "candidate": {
+    "answer": "**范围与依据**：仅据 AlphaZero v1（arXiv:1712.01815v1）Methods 及其表格；引用的物理页为 PDF 页 2、12–14，章节含“Representation”、Table S1、Table S2 [src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b2][src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b12][src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b13][src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b14]。\n\n**输入表示（历史与规则状态）**：输入为 \\(N\\times N\\times (MT+L)\\) 图像栈，第一组特征按 T=8 步历史重复 [src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b13]。Chess 共 119 planes：P1/P2 piece 各 6、Repetitions 2、Colour 1、Total move count 1、P1/P2 castling 各 2、No-progress count 1 [src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b13]。Shogi 共 362 planes：P1/P2 piece 各 14、Repetitions 2、P1/P2 prisoner count 各 7、Colour 1、Total move count 1 [src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b13]。规则知识用于编码输入平面（如 castling、repetition、no-progress）及输出平面（棋子移动、升变、shogi 打子）[src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b12]。\n\n**动作编码**：Chess policy 为 8×8×73 stack，合法着法概率分布；73 = queen moves 56 + knight moves 8 + underpromotions 9 [src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b14]。文中说明第七横线兵升变为 knight/bishop/rook 的两条对角线欠升变，其余升变为 queen [src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b14]。Shogi policy 为 9×9×139 stack，对应 11,259 个可能着法；139 = queen moves 64 + knight moves 2 + promoting queen moves 64 + promoting knight moves 2 + Drop 7 [src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b14]。合法着法数还用于缩放探索噪声 [src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b12]。\n\n**非法动作处理**：所给片段未明述 masked softmax 或把非法动作置零等具体机制；仅说 policy 是“over legal moves”的概率分布 [src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b14]，且超过典型步数上限的对局按和棋终止 [src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b12]。故非法动作的具体屏蔽实现应标未知，不能据本片段补造 [src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b14][src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b12]。\n\n**边界（规则编码 vs 棋力评估）**：AlphaZero 用网络 (p,v)=fθ(s) 替代手工评估函数和着法排序启发式 [src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b2]，并且“除上述之外没有使用任何形式的领域知识” [src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b12]。但这不是连规则与表示都不用：规则仍被用于输入/输出平面编码 [src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b12]。片段未说使用人类专家棋谱；也未给任何手工棋力评估或搜索启发式 [src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b2][src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b12]。\n\n**数字核对小结**：Chess 输入 119、输出 73；Shogi 输入 362、输出 139；均出自 Table S1/S2 [src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b13][src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b14]。",
+    "body_evidence_ids": [
+      "src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b12",
+      "src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b13",
+      "src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b14",
+      "src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b2"
+    ],
+    "claims": [
+      {
+        "evidence_ids": [
+          "src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b13"
+        ],
+        "id": "claim-1",
+        "text": "Chess 输入为 119 planes，含 P1/P2 piece 各6、Repetitions 2、Colour 1、Total move count 1、P1/P2 castling 各2、No-progress count 1；第一组特征按 T=8 步历史重复。"
+      },
+      {
+        "evidence_ids": [
+          "src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b13"
+        ],
+        "id": "claim-2",
+        "text": "Shogi 输入为 362 planes，含 P1/P2 piece 各14、Repetitions 2、P1/P2 prisoner count 各7、Colour 1、Total move count 1。"
+      },
+      {
+        "evidence_ids": [
+          "src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b12"
+        ],
+        "id": "claim-3",
+        "text": "规则知识被用于编码输入平面（如 castling、repetition、no-progress）和输出平面（棋子移动、升变、shogi 打子）；合法着法数用于缩放探索噪声。"
+      },
+      {
+        "evidence_ids": [
+          "src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b14"
+        ],
+        "id": "claim-4",
+        "text": "Chess 输出为 8×8×73 的合法着法概率平面：56 queen moves + 8 knight moves + 9 underpromotions；Shogi 输出为 9×9×139，对应 11,259 个可能着法。"
+      },
+      {
+        "evidence_ids": [
+          "src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b2"
+        ],
+        "id": "claim-5",
+        "text": "AlphaZero 用深度网络 (p,v)=fθ(s) 替代手工评估函数与着法排序启发式。"
+      },
+      {
+        "evidence_ids": [
+          "src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210:b12"
+        ],
+        "id": "claim-6",
+        "text": "AlphaZero 除所列规则/表示等点外没有使用任何其他形式的领域知识。"
+      }
+    ],
+    "coverage_complete": true,
+    "criterion_references": [],
+    "open_issues": [
+      "非法/不合法动作的确切屏蔽或置零机制在本片段未给出，只能确认为“over legal moves”的概率分布与超步数和棋处理，不能补造实现细节。",
+      "未给出人类专家棋谱或搜索启发式的使用情况；仅可据片段说其被替代/未使用，不能推断历史所有版本。"
+    ],
+    "sources": [
+      "src-f30cf86336732b793346dc25f3be285bf9dc31359357f210daa4d20853cd5210"
+    ],
+    "uncovered_evidence_ids": []
+  }
+}
