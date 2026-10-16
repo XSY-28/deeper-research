@@ -76,6 +76,28 @@ def _env_text(original: str, name: str, value: str) -> str:
     return ''.join(lines)
 
 
+def _profile_settings(original: dict) -> dict:
+    settings=dict(original)
+    fields=(
+        ('model','模型名称','模型名称不能包含换行。'),
+        ('base_url','API根地址','请输入HTTPS API根地址（本地回环可用HTTP），不含账号、查询参数或片段。'),
+        ('input_usd_per_million','输入费率（USD/100万tokens）','费率必须是有限、非负的数值。'),
+        ('output_usd_per_million','输出费率（USD/100万tokens）','费率必须是有限、非负的数值。'),
+    )
+    print('配置所选profile，回车保留当前值。费率用于本地费用估算，请按服务实际价格填写。',file=sys.stderr)
+    for field,label,error in fields:
+        while True:
+            value=_ask(f'{label} [{settings[field]}]：')
+            if not value:break
+            candidate={**settings,field:value}
+            try:profile=ProviderProfile.from_dict(candidate)
+            except ValueError:
+                print(error,file=sys.stderr);continue
+            settings[field]=str(getattr(profile,field))
+            break
+    return settings
+
+
 def configure(config_path: Path) -> bool:
     """Gather first, confirm, then save. True means setup confirmed locally."""
     if not sys.stdin.isatty():raise ValueError('交互配置需要终端；脚本请用 init --no-interactive。')
@@ -88,7 +110,7 @@ def configure(config_path: Path) -> bool:
     if default not in profiles:raise ValueError('默认profile不存在，请先检查JSON配置。')
     try:original_env=previous_env.decode('utf-8') if previous_env is not None else ''
     except UnicodeError:raise ValueError('.env不是UTF-8文本，未修改，请手动检查。') from None
-    print('Deeper Research 首次配置：只保存本地设置，不联网、不验证账号有效性、不产生模型费用。',file=sys.stderr)
+    print('Deeper Research 配置：只保存本地设置，不联网、不验证账号有效性、不产生模型费用。',file=sys.stderr)
     for i,name in enumerate(names,1):
         p=profiles[name];print(f'  {i}. {name} — {p.protocol} / {p.model}',file=sys.stderr)
     while True:
@@ -97,7 +119,8 @@ def configure(config_path: Path) -> bool:
         if choice in profiles:selected=choice;break
         if choice.isdecimal() and 1<=int(choice)<=len(names):selected=names[int(choice)-1];break
         print('请输入列表中的编号或profile名称。',file=sys.stderr)
-    profile=profiles[selected];key_name=profile.api_key_env
+    settings=_profile_settings(config['profiles'][selected])
+    profile=ProviderProfile.from_dict(settings);key_name=profile.api_key_env
     exists_in_file=any(separator and key.strip()==key_name and value.strip().strip("\"'")
                        for key,separator,value in (line.partition('=') for line in original_env.splitlines()))
     exists_in_environment=bool(os.environ.get(key_name))
@@ -106,15 +129,16 @@ def configure(config_path: Path) -> bool:
     replace=not (exists_in_file or exists_in_environment) or _confirm('已有密钥值。要在本地.env写入新值吗？')
     secret=_secret(key_name) if replace else None
     print(f'配置：{config_path}\n默认profile：{selected}\n服务地址：{profile.base_url}',file=sys.stderr)
+    print(f'模型：{profile.model}\n费率（USD/100万tokens）：输入 {profile.input_usd_per_million} / 输出 {profile.output_usd_per_million}',file=sys.stderr)
     print(f'密钥：写入 {env_path}（权限0600）' if secret else '密钥：保留已有值或跳过；没有设置时可稍后配置。',file=sys.stderr)
     if not _confirm('保存这些本地设置？',default=True):return False
-    updated={**config,'default_profile':selected}
+    updated={**config,'default_profile':selected,'profiles':{**config['profiles'],selected:settings}}
     try:
         # Save the key first: a key-write failure must not switch the default
         # profile or make first init look finished on a normal retry.
         if secret is not None:
             _atomic_write(env_path,_env_text(original_env,key_name,secret).encode('utf-8'),previous_env)
-        if previous_config is None or selected!=default:
+        if previous_config is None or updated!=config:
             _atomic_write(config_path,(json.dumps(updated,ensure_ascii=False,indent=2)+'\n').encode('utf-8'),previous_config)
     except (OSError,ValueError,KeyboardInterrupt):
         raise ValueError('本地保存未完成，部分文件可能已保存；请使用相同--config重新运行 init --interactive。未发出API请求。') from None
